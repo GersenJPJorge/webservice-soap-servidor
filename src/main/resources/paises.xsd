@@ -1,0 +1,50 @@
+<!-- definição de cabeçalho 
+     o :tns e o targetNamespace t^em que ser exatamente assim -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://exemplo.com/wsdlservidor/assets"
+           targetNamespace="http://exemplo.com/wsdlservidor/assets"
+           elementFormDefault="qualified">
+
+<!-- O meu cliente vai fazer um request passando um nome como string -->
+    <xs:element name="getPaisRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nome" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+<!-- Após o request temos que definir a resposta (que é um objeto) 
+     obs: o tipo país é do tipo país, e não um string, logo, é do tipo complexo e tem que ser definido-->
+    <xs:element name="getPaisResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="pais" type="tns:pais"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+<!-- Definindo o tipo país (objeto) e seus atributos) -->
+    <xs:complexType name="pais">
+        <xs:sequence>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="populacao" type="xs:int"/>
+            <xs:element name="capital" type="xs:string"/>
+            <xs:element name="moeda" type="tns:moeda"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+<!-- Moeda também não é um string, é do tipo moeda, logo, é do tipo complexo e tem que ser definido-->
+    <xs:simpleType name="moeda">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GBP"/>
+            <xs:enumeration value="EUR"/>
+            <xs:enumeration value="BRL"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
